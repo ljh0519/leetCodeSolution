@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/build/leetCodeSolution",
             "args": [
-                "list2"
+                "list3"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
