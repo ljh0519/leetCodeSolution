@@ -31,8 +31,6 @@ link_libraries(struct_core_static)
 
 add_executable(leetCodeSolution
     main.cpp
-    list/list1.hpp
-    list/list2.hpp
     )
 
 # target_link_libraries(leetCodeSolution

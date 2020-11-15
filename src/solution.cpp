@@ -3,6 +3,7 @@
 #include "../list/list1.hpp"
 #include "../list/list2.hpp"
 #include "../list/list3.hpp"
+#include "../list/list4.hpp"
 
 
 
@@ -14,6 +15,8 @@ Solution* Solution::create(const std::string& type) {
         return new SolutionList2();
     } else if ("list3" == type) {
         return new SolutionList3();
+    } else if ("list4" == type) {
+        return new SolutionList4();
     }
 
     return nullptr;
