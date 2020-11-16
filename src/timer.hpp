@@ -7,9 +7,9 @@
 
 class Timer{
 public:
-    using timeFunc = std::function<void*()>;
+    using timeFunc1 = std::function<void*()>;
 public:
-    void* calc(const timeFunc& func) {
+    void* calc(const timeFunc1& func) {
         start = get_now_ms();
         void* obj = func();
         end = get_now_ms();

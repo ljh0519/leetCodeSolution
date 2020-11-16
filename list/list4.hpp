@@ -21,11 +21,11 @@ public:
 	}
 
     virtual void solution() override {
-		list_ = ListCreater::generateNewList({1});	//nullptr
+		// list_ = ListCreater::generateNewList({1});	//nullptr
 		// list_ = ListCreater::generateNewList({1});	//1
 		// list_ = ListCreater::generateNewList({1,2,3,4});	//2,1,4,3
 		// list_ = ListCreater::generateNewList({1,2,3,4,5});	//3,2,1,4,5
-		// list_ = ListCreater::generateNewList({2,5,3,4,6,2,2});	//5,2,4,3,2,6,2     3,5,2,2,6,4,2
+		list_ = ListCreater::generateNewList({2,5,3,4,6,2,2});	//5,2,4,3,2,6,2     3,5,2,2,6,4,2
 
 		list_ = (ListNode*)timer_.calc([this]() -> void* {
 			return reverseList(list_);
@@ -36,8 +36,6 @@ public:
 		ListCreater::dump(list_);
         timer_.dump();
     }
-
-
 
     // 从头回转
     ListNode* reverseList(ListNode* head) {

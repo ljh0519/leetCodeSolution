@@ -27,10 +27,12 @@ public:
 	}
 
     virtual void solution() override {
-		// list_ = ListCreater::generateNewList({1,2,3,4});	//2,1,4,3
-        int k = 2;
+		// list_ = ListCreater::generateNewList({1,2});	//2,1,4,3
+        int k = 3;
+		// list_ = ListCreater::generateNewList({1,2,3});	//3,2,1
+		// list_ = ListCreater::generateNewList({1,2,3,4});	//3,2,1,4
 		// list_ = ListCreater::generateNewList({1,2,3,4,5});	//3,2,1,4,5
-		list_ = ListCreater::generateNewList({2,5,3,4,6,2,2});	//5,2,4,3,2,6,2     3,5,2,2,6,4,2
+		// list_ = ListCreater::generateNewList({1,2,3,4,5,6});	//3,5,2,2,6,4,2
 
 		list_ = (ListNode*)timer_.calc([this, k]() -> void* {
 			return reverseKGroup(list_, k);
@@ -42,9 +44,80 @@ public:
         timer_.dump();
     }
     
+	// 非递归
     ListNode* reverseKGroup(ListNode* head, int k) {
-    
+		if(!head || !head->next) {
+			return head;
+		}
+
+		ListNode* pre_tail = nullptr;
+		ListNode* new_head = nullptr;
+		ListNode* first = nullptr;
+		ListNode* p1 = head;
+		ListNode* p2 = head;
+		ListNode* p3 = head;
+		while(p3 && p3->next) {
+			int n = k;
+			p3 = p3->next;
+			for(; --n && nullptr != p2 && nullptr != p3; p2 = p2->next, p3 = p3->next) ;
+			if(0 != n ) break;
+			new_head = reverse(p3, p2, p1);
+			if(!first) {
+				first = new_head;
+			} else {
+				pre_tail->next = new_head;
+			}
+			pre_tail = p1;
+			p1 = p3;
+			p2 = p3;
+		}
+
+		return first;
     }
+
+
+
+
+	// 递归
+    // ListNode* reverseKGroup(ListNode* head, int k) {
+	// 	if(!head || !head->next) {
+	// 		return head;
+	// 	}
+
+	// 	return recursion(head, head, head, k);
+    // }
+
+	// ListNode* recursion(ListNode* p3, ListNode* p1, ListNode* p2, int k) {
+	// 	if(!p1 || !p1->next) {
+	// 		return p1;
+	// 	}
+
+	// 	int n = k;
+	// 	p3 = p3->next;
+	// 	for(; --n && nullptr != p2 && nullptr != p3; p2 = p2->next, p3 = p3->next) ;
+	// 	if(0 != n ) return p1;
+
+	// 	ListNode* new_head = recursion(p3, p3, p3, k);
+	// 	return reverse(new_head, p2, p1);
+	// }
+
+	ListNode* reverse(ListNode* tail, ListNode* end, ListNode* head) {
+		if(!head || !head->next) {
+			return head;
+		}
+
+        ListNode* pre = tail;
+        ListNode* now = head;
+        ListNode* next = head;
+        do {
+            next = next->next;
+            now->next = pre;
+            pre = now;
+            now = next;
+        } while(next && pre != end);
+
+        return pre;
+	}
 private:
 	ListNode* list_ = nullptr;
 };

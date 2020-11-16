@@ -2,6 +2,7 @@
 #define __SOLUTIION_HPP__
 
 #include <string>
+#include <vector>
 #include "timer.hpp"
 
 class Solution {
