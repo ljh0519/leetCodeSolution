@@ -10,6 +10,8 @@
 
 #include "../str/str1.hpp"
 
+#include "../number/number1.hpp"
+
 
 Solution* Solution::create(const std::string& type) {
     if("list1" == type) {
@@ -26,6 +28,8 @@ Solution* Solution::create(const std::string& type) {
         return new SolutionArray2();
     } else if ("str1" == type) {
         return new SolutionStr1();
+    } else if ("number1" == type) {
+        return new SolutionNumber1();
     }
 
     return nullptr;
