@@ -8,12 +8,15 @@
 
 #include "../array/array1.hpp"
 #include "../array/array2.hpp"
+#include "../array/array3.hpp"
 
 #include "../str/str1.hpp"
 #include "../str/str2.hpp"
 
 #include "../number/number1.hpp"
 #include "../number/number2.hpp"
+#include "../number/number3.hpp"
+#include "../number/number4.hpp"
 
 
 Solution* Solution::create(const std::string& type) {
@@ -31,6 +34,8 @@ Solution* Solution::create(const std::string& type) {
         return new SolutionArray1();
     } else if ("array2" == type) {
         return new SolutionArray2();
+    } else if ("array3" == type) {
+        return new SolutionArray3();
     } else if ("str1" == type) {
         return new SolutionStr1();
     } else if ("str2" == type) {
@@ -39,6 +44,10 @@ Solution* Solution::create(const std::string& type) {
         return new SolutionNumber1();
     } else if ("number2" == type) {
         return new SolutionNumber2();
+    } else if ("number3" == type) {
+        return new SolutionNumber3();
+    } else if ("number4" == type) {
+        return new SolutionNumber4();
     }
 
     return nullptr;
