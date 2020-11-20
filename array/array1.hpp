@@ -46,7 +46,9 @@ public:
 	}
 
     virtual void solution() override {
-        arr_ = {1,1,3,4,4,5};
+        // arr_ = {1,1,3,4,4,5};
+        arr_ = {1,1,3,3,4,5,5};
+
 		timer_.calc([this]() -> void* {
 			int size = removeDuplicates(arr_);
             std::cout << "size=" << size << std::endl;
@@ -62,9 +64,9 @@ public:
     }
 
     //32ms      13.7MB
-    int removeDuplicates(std::vector<int>& nums) { 
-        return unique(nums.begin(), nums.end()) - nums.begin();
-    }
+    // int removeDuplicates(std::vector<int>& nums) { 
+    //     return unique(nums.begin(), nums.end()) - nums.begin();
+    // }
 
     // //24ms      13.9MB
     // int removeDuplicates(std::vector<int>& nums) { 
@@ -91,6 +93,13 @@ public:
     //     return nums.size();
     // }
 
+    int removeDuplicates(std::vector<int>& nums) {
+        if (nums.size() < 2) return nums.size();
+        int j = 0;
+        for (int i = 1; i < nums.size(); i++)
+            if (nums[j] != nums[i]) nums[++j] = nums[i];
+        return ++j;
+    }
 
 
 

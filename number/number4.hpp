@@ -59,7 +59,7 @@ public:
         // input_ = 4;          //IV
         // input_ = 9;          //IX
         // input_ = 58;          //LVIII
-        // input_ = 1994;         //1994MCMXCIV
+        input_ = 1994;         //MCMXCIV
 
 		timer_.calc([this]() -> void* {
 			out_ = intToRoman(input_);
@@ -73,8 +73,40 @@ public:
         timer_.dump();
     }
 
+    //0ms       6.2MB
     std::string intToRoman(int num) {
+        std::string out;
+        intToRomanInternal(out, num/1000, "M", "", "");
+        num%=1000;
+        intToRomanInternal(out, num/100, "C", "D", "M");
+        num%=100;
+        intToRomanInternal(out, num/10, "X", "L", "C");
+        num%=10;
+        intToRomanInternal(out, num, "I", "V", "X");
 
+        return out;
+    }
+
+private:
+    inline void intToRomanInternal(std::string& out, int num, const char* one , const char* five, const char* ten) {
+        if(0 == num) {
+            return ;
+        }
+        
+        if(num < 4) {
+            while(num--) {
+                out += one;
+            }
+        } else if(4 == num) {
+            out = out + one + five;
+        } else if (num > 4 && num < 9) {
+            out += five;
+            while(num-- > 5) {
+                out += one;
+            }
+        } else if (9 == num) {
+            out = out + one + ten;
+        }
     }
 
 private:

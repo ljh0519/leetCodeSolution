@@ -12,11 +12,14 @@
 
 #include "../str/str1.hpp"
 #include "../str/str2.hpp"
+#include "../str/str3.hpp"
+#include "../str/str4.hpp"
 
 #include "../number/number1.hpp"
 #include "../number/number2.hpp"
 #include "../number/number3.hpp"
 #include "../number/number4.hpp"
+#include "../number/number5.hpp"
 
 
 Solution* Solution::create(const std::string& type) {
@@ -40,6 +43,10 @@ Solution* Solution::create(const std::string& type) {
         return new SolutionStr1();
     } else if ("str2" == type) {
         return new SolutionStr2();
+    } else if ("str3" == type) {
+        return new SolutionStr3();
+    } else if ("str4" == type) {
+        return new SolutionStr4();
     } else if ("number1" == type) {
         return new SolutionNumber1();
     } else if ("number2" == type) {
@@ -48,6 +55,8 @@ Solution* Solution::create(const std::string& type) {
         return new SolutionNumber3();
     } else if ("number4" == type) {
         return new SolutionNumber4();
+    } else if ("number5" == type) {
+        return new SolutionNumber5();
     }
 
     return nullptr;

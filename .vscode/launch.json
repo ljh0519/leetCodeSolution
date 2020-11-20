@@ -10,9 +10,10 @@
             "request": "launch",
             "program": "${workspaceFolder}/build/leetCodeSolution",
             "args": [
-                // "number2"
+                "number5"
                 // "list5"
-                "str2"
+                // "str4"
+                // "array1"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
