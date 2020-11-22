@@ -14,6 +14,7 @@
 #include "../str/str2.hpp"
 #include "../str/str3.hpp"
 #include "../str/str4.hpp"
+#include "../str/str5.hpp"
 
 #include "../number/number1.hpp"
 #include "../number/number2.hpp"
@@ -47,6 +48,8 @@ Solution* Solution::create(const std::string& type) {
         return new SolutionStr3();
     } else if ("str4" == type) {
         return new SolutionStr4();
+    } else if ("str5" == type) {
+        return new SolutionStr5();
     } else if ("number1" == type) {
         return new SolutionNumber1();
     } else if ("number2" == type) {

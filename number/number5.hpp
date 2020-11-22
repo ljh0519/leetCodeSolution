@@ -29,17 +29,18 @@ public:
 
     virtual void solution() override {   
         
-        // input_ = 100;       //C
-        // input_ = 940;        //CMXL
-        // input_ = 9;          //IX
-        // input_ = 58;          //LVIII
-        // input_ = 1994;         //MCMXCIV
-        // input_ = 1994;         //MCMXCIV
-        // input_ = 2147483647;         //MCMXCIV
-        // input_ = -1;         //MCMXCIV
-        // input_ = -298;         //MCMXCIV
-        // input_ = -2147483648;         //MCMXCIV
-        input_ = -2147483647;         //MCMXCIV
+        // input_ = 100;
+        // input_ = 940;
+        // input_ = 9;
+        // input_ = 58;
+        // input_ = 1994;
+        // input_ = 2147483647;
+        // input_ = 1534236469;
+        // input_ = -1;
+        // input_ = -298;
+        // input_ = -2147483648;
+        // input_ = -2147483647;
+        // input_ = -1563847412;
 
 		timer_.calc([this]() -> void* {
 			out_ = reverse(input_);
@@ -53,30 +54,47 @@ public:
         timer_.dump();
     }
 
+    //大神解法，long在C99规定中至少比int取值范围大，所以不担心整数溢出，可以直接进行计算
     int reverse(int x) {
-        if(x > -10 && x < 10) {
-            return x;
-        }else if (INT32_MIN == x || INT32_MAX == x) {
-            return 0;
+        long n = 0;
+        while (x) {
+            n = n * 10 + x % 10;
+            x /= 10;
         }
-
-        std::string str = std::to_string(x);
-        int size = str.size();
-        int sum = 0;
-        int pre = 0;
-        for(int i = 0; i < size; ++i) {
-            if(x < 0) {
-                if(0 == i)continue;
-                pre = sum - pow(10, i-1) * (str[i] - 48);                
-                if(pre > sum) return 0;
-            } else {
-                pre = sum + pow(10, i) * (str[i] - 48);
-                if(pre < sum)  return 0;
-            }
-            sum = pre;
-        }
-        return sum;
+        return n > INT32_MAX || n < INT32_MIN ? 0 : n;
     }
+
+
+    //4ms       6.4MB
+    // int reverse(int x) {
+    //     if(x > -10 && x < 10) {
+    //         return x;
+    //     }else if (INT32_MIN == x || INT32_MAX == x) {
+    //         return 0;
+    //     }
+
+    //     std::string str = std::to_string(x);
+    //     int size = str.size();
+    //     if(x > 0 && 10 == size && str[9] > 50
+    //     || x < 0 && 11 == size && str[10] > 50) {
+    //         return 0;
+    //     }
+    //     int sum = 0, part;
+    //     for(int i = size-1; i >= 0; --i) {
+    //         if(x < 0) {
+    //             if(0 == i)continue;
+    //             part = pow(10, i-1) * (str[i] - 48);                
+    //             if(INT32_MIN - sum  > -part) return 0;
+    //             sum -= part;
+    //         } else {
+    //             part = pow(10, i) * (str[i] - 48);
+    //             if(INT32_MAX - sum < part)  return 0;
+    //             sum += part;
+    //         }
+    //     }
+
+    //     return sum;
+    // }
 
 private:
     int out_;
