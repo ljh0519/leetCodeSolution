@@ -2,7 +2,6 @@
 #define __LIST4_HPP__
 
 #include "solution.hpp"
-#include "listCreater.hpp"
 // 反转一个单链表。
 
 // 示例:
@@ -16,16 +15,16 @@ class SolutionList4 : public Solution{
 public:	
 	~SolutionList4() {
 		if(list_) {
-			ListCreater::free(&list_);
+			ListNode::free(&list_);
 		}
 	}
 
     virtual void solution() override {
-		// list_ = ListCreater::generateNewList({1});	//nullptr
-		// list_ = ListCreater::generateNewList({1});	//1
-		// list_ = ListCreater::generateNewList({1,2,3,4});	//2,1,4,3
-		// list_ = ListCreater::generateNewList({1,2,3,4,5});	//3,2,1,4,5
-		list_ = ListCreater::generateNewList({2,5,3,4,6,2,2});	//5,2,4,3,2,6,2     3,5,2,2,6,4,2
+		// list_ = ListNode::Create({1});	//nullptr
+		// list_ = ListNode::Create({1});	//1
+		// list_ = ListNode::Create({1,2,3,4});	//2,1,4,3
+		// list_ = ListNode::Create({1,2,3,4,5});	//3,2,1,4,5
+		list_ = ListNode::Create({2,5,3,4,6,2,2});	//5,2,4,3,2,6,2     3,5,2,2,6,4,2
 
 		list_ = (ListNode*)timer_.calc([this]() -> void* {
 			return reverseList(list_);
@@ -33,7 +32,7 @@ public:
     }
 
     virtual void dump() override {
-		ListCreater::dump(list_);
+		ListNode::dump(list_);
         timer_.dump();
     }
 

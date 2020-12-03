@@ -9,18 +9,24 @@
 #include "../array/array1.hpp"
 #include "../array/array2.hpp"
 #include "../array/array3.hpp"
+#include "../array/array5.hpp"
+#include "../array/array6.hpp"
+#include "../array/***array7.hpp"
 
 #include "../str/str1.hpp"
 #include "../str/str2.hpp"
 #include "../str/str3.hpp"
 #include "../str/str4.hpp"
 #include "../str/str5.hpp"
+#include "../str/***str6.hpp"
 
 #include "../number/number1.hpp"
 #include "../number/number2.hpp"
 #include "../number/number3.hpp"
 #include "../number/number4.hpp"
 #include "../number/number5.hpp"
+#include "../number/number6.hpp"
+#include "../number/number7.hpp"
 
 
 Solution* Solution::create(const std::string& type) {
@@ -40,6 +46,12 @@ Solution* Solution::create(const std::string& type) {
         return new SolutionArray2();
     } else if ("array3" == type) {
         return new SolutionArray3();
+    } else if ("array5" == type) {
+        return new SolutionArray5();
+    } else if ("array6" == type) {
+        return new SolutionArray6();
+    } else if ("array7" == type) {
+        return new SolutionArray7();
     } else if ("str1" == type) {
         return new SolutionStr1();
     } else if ("str2" == type) {
@@ -50,6 +62,8 @@ Solution* Solution::create(const std::string& type) {
         return new SolutionStr4();
     } else if ("str5" == type) {
         return new SolutionStr5();
+    } else if ("str6" == type) {
+        return new SolutionStr6();
     } else if ("number1" == type) {
         return new SolutionNumber1();
     } else if ("number2" == type) {
@@ -60,6 +74,10 @@ Solution* Solution::create(const std::string& type) {
         return new SolutionNumber4();
     } else if ("number5" == type) {
         return new SolutionNumber5();
+    } else if ("number6" == type) {
+        return new SolutionNumber6();
+    } else if ("number7" == type) {
+        return new SolutionNumber7();
     }
 
     return nullptr;

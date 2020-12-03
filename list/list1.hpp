@@ -2,7 +2,6 @@
 #define __LIST1_HPP__
 
 #include <map>
-#include "listCreater.hpp"
 #include "solution.hpp"
 // 升序合并多个链表
 /**

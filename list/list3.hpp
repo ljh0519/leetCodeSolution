@@ -2,7 +2,6 @@
 #define __LIST3_HPP__
 
 #include "solution.hpp"
-#include "listCreater.hpp"
 // 给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。
 // 认真审题，是反转链表！！！！按k个链表为区间，反转链表
 // k 是一个正整数，它的值小于或等于链表的长度。
@@ -22,17 +21,17 @@ class SolutionList3 : public Solution{
 public:	
 	~SolutionList3() {
 		if(list_) {
-			ListCreater::free(&list_);
+			ListNode::free(&list_);
 		}
 	}
 
     virtual void solution() override {
-		// list_ = ListCreater::generateNewList({1,2});	//2,1,4,3
+		// list_ = ListNode::Create({1,2});	//2,1,4,3
         int k = 3;
-		// list_ = ListCreater::generateNewList({1,2,3});	//3,2,1
-		// list_ = ListCreater::generateNewList({1,2,3,4});	//3,2,1,4
-		// list_ = ListCreater::generateNewList({1,2,3,4,5});	//3,2,1,4,5
-		// list_ = ListCreater::generateNewList({1,2,3,4,5,6});	//3,5,2,2,6,4,2
+		// list_ = ListNode::Create({1,2,3});	//3,2,1
+		// list_ = ListNode::Create({1,2,3,4});	//3,2,1,4
+		// list_ = ListNode::Create({1,2,3,4,5});	//3,2,1,4,5
+		// list_ = ListNode::Create({1,2,3,4,5,6});	//3,5,2,2,6,4,2
 
 		list_ = (ListNode*)timer_.calc([this, k]() -> void* {
 			return reverseKGroup(list_, k);
@@ -40,7 +39,7 @@ public:
     }
 
     virtual void dump() override {
-		ListCreater::dump(list_);
+		ListNode::dump(list_);
         timer_.dump();
     }
     

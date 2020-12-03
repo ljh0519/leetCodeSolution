@@ -1,7 +1,6 @@
 #ifndef __LIST5_HPP__
 #define __LIST5_HPP__
 
-#include "listCreater.hpp"
 #include "solution.hpp"
 #include "math.h"
 // 给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
@@ -20,10 +19,10 @@ class SolutionList5 : public Solution{
 public:	
 	~SolutionList5() {
         if(out_) {
-            ListCreater::free(&out_);
+            ListNode::free(&out_);
         }
         if(tmp_) {
-            ListCreater::free(&tmp_);
+            ListNode::free(&tmp_);
         }
     }
 
@@ -31,11 +30,11 @@ public:
         ListNode* l1 = nullptr;
         ListNode* l2 = nullptr;
 
-        // l1= ListCreater::generateNewList({1,5,3}),l2=ListCreater::generateNewList({4,5,6}); // 1005 5,0,0,1
-        // l1= ListCreater::generateNewList({2,4,3}),l2=ListCreater::generateNewList({5,6,4}); // 807 7,0,8
-        // l1= ListCreater::generateNewList({9,2,2,3,3,7,2,0,3,6,8,5,4,7,7,5,8,0,7}),l2=ListCreater::generateNewList({4}); // 3,3,2,3,3,7,2,0,3,6,8,5,4,7,7,5,8,0,7
-        l1= ListCreater::generateNewList({9,9,9,9}),l2=ListCreater::generateNewList({9,9,9});
-        // l1= ListCreater::generateNewList({1,5,3}),l2=ListCreater::generateNewList({4,5,6});
+        // l1= ListNode::Create({1,5,3}),l2=ListNode::Create({4,5,6}); // 1005 5,0,0,1
+        // l1= ListNode::Create({2,4,3}),l2=ListNode::Create({5,6,4}); // 807 7,0,8
+        // l1= ListNode::Create({9,2,2,3,3,7,2,0,3,6,8,5,4,7,7,5,8,0,7}),l2=ListNode::Create({4}); // 3,3,2,3,3,7,2,0,3,6,8,5,4,7,7,5,8,0,7
+        l1= ListNode::Create({9,9,9,9}),l2=ListNode::Create({9,9,9});
+        // l1= ListNode::Create({1,5,3}),l2=ListNode::Create({4,5,6});
 
 		timer_.calc([this, l1, l2]() -> void* {
 			out_ = addTwoNumbers(l1, l2);
@@ -44,7 +43,7 @@ public:
     }
 
     virtual void dump() override {
-        ListCreater::dump(out_);
+        ListNode::dump(out_);
         timer_.dump();
     }
 

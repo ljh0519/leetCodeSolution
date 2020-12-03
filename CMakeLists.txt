@@ -20,7 +20,9 @@ include_directories(src)
 include_directories(list)
 
 set(STRUCT_UTIL_SOURCE
-    src/listCreater.hpp
+    src/listUtil.hpp
+    src/treeUtil.hpp
+    src/vectorUtil.hpp
     src/solution.cpp
     src/solution.hpp
     src/timer.hpp)

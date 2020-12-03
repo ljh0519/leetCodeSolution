@@ -2,7 +2,9 @@
 #define __SOLUTIION_HPP__
 
 #include <string>
-#include <vector>
+#include "listUtil.hpp"
+#include "treeUtil.hpp"
+#include "vectorUtil.hpp"
 #include "timer.hpp"
 
 class Solution {

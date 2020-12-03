@@ -1,5 +1,5 @@
-#ifndef __LISTCREATER_HPP__
-#define __LISTCREATER_HPP__
+#ifndef __LIST_UTIL_HPP__
+#define __LIST_UTIL_HPP__
 
 #include <vector>
 #include <iostream>
@@ -10,13 +10,9 @@ struct ListNode {
 	ListNode() : val(0), next(nullptr) {}
 	ListNode(int x) : val(x), next(nullptr) {}
 	ListNode(int x, ListNode* next) : val(x), next(next) {}
-};
 
-
-class ListCreater {
-public:
 	static
-	ListNode* generateNewList(std::vector<int>&& vec) {
+	ListNode* Create(std::vector<int>&& vec) {
 		if (vec.empty()) {
 			return nullptr;
 		}
@@ -67,8 +63,4 @@ public:
 
 
 
-
-
-
-
-#endif //__LISTCREATER_HPP__
+#endif //__LIST_UTIL_HPP__

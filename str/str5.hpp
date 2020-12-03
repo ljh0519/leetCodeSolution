@@ -74,7 +74,7 @@ public:
         // input_ = "+2147483647";  
         // input_ = "    +111111";  
         // input_ = "    +";  
-        input_ = "    2000000000000000000000000";  
+        // input_ = "    2000000000000000000000000";  
         // input_ = "    0000000000000000000000002";  
         // input_ = "    -0000000000000000000112233";  
 
@@ -90,6 +90,9 @@ public:
         timer_.dump();
     }
 
+
+
+    //12ms      7.2MB
     int myAtoi(std::string s) {
         if(s.empty()) {
             return 0;
@@ -106,12 +109,11 @@ public:
             ++i;
         } else if (s[i] == '+') {
             ++i;
-        } else if (s[i] >= '0' && s[i] <= '9') {
-        } else {
+        } else if (s[i] < '0' && s[i] > '9') {
             return 0;
         }
+        for(; i < size && s[i] == '0'; ++i) ;
         for(j = i; j < size && s[j] >= '0' && s[j] <= '9'; ++j) ;
-        if(i == j) return 0;
         if( j - i > 10) return flag ? INT32_MAX : INT32_MIN;
         --j;
 
