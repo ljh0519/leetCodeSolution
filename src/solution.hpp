@@ -9,6 +9,8 @@
 
 class Solution {
 public:
+    virtual ~Solution() {};
+
     virtual void solution() = 0;
 
     virtual void dump() = 0;

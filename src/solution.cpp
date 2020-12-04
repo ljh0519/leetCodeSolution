@@ -11,7 +11,8 @@
 #include "../array/array3.hpp"
 #include "../array/array5.hpp"
 #include "../array/array6.hpp"
-#include "../array/***array7.hpp"
+#include "../array/array7.hpp"
+#include "../array/array8.hpp"
 
 #include "../str/str1.hpp"
 #include "../str/str2.hpp"
@@ -27,6 +28,8 @@
 #include "../number/number5.hpp"
 #include "../number/number6.hpp"
 #include "../number/number7.hpp"
+
+#include "../tree/tree1.hpp"
 
 
 Solution* Solution::create(const std::string& type) {
@@ -78,6 +81,8 @@ Solution* Solution::create(const std::string& type) {
         return new SolutionNumber6();
     } else if ("number7" == type) {
         return new SolutionNumber7();
+    } else if ("tree1" == type) {
+        return new SolutionTree1();
     }
 
     return nullptr;

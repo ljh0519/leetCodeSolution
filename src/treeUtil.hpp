@@ -16,28 +16,30 @@ struct TreeNode {
 
     static
     TreeNode* Create(const std::vector<std::string>& nums) {
+        static std::queue<TreeNode*> queue;
         if(nums.empty()
-        || 1 == nums.size() && "#" == nums[0]) {
+        || 1 < nums.size() && "null" == nums[0] || "#" == nums[0]) {
             return nullptr;
         }
 
-        std::queue<TreeNode*> queue;
+        queue = std::queue<TreeNode*>();        //clear
         int size = nums.size();
         TreeNode* root = new TreeNode(atoi(nums[0].c_str()));
         queue.push(root);
-        for(int i = 1; i < size; ) {
+        for(int i = 1; i < size && !queue.empty(); ) {
             auto node = queue.front();
             queue.pop();
-            if(i < size && nums[i] != "#") {
+            if(i < size && "null" != nums[i] && "#" != nums[i]) {
                 node->left = new TreeNode(atoi(nums[i].c_str()));
                 queue.push(node->left);
-                ++i;
             }
-            if(i < size && nums[i] != "#") {
+            ++i;
+
+            if(i < size && "null" != nums[i] && "#" != nums[i]) {
                 node->right = new TreeNode(atoi(nums[i].c_str()));
                 queue.push(node->right);
-                ++i;
             }
+            ++i;
         }
 
         return root;
@@ -45,12 +47,12 @@ struct TreeNode {
 
     static
     void Free(TreeNode** tree) {
+        static std::vector<TreeNode*> stack;
         if(!tree || !*tree) {
             return ;
         }
         //前序遍历销毁二叉树
-
-        std::vector<TreeNode*> stack;
+        stack.clear();
         stack.emplace_back(*tree);
         while(!stack.empty()) {
             auto node = stack.back();
