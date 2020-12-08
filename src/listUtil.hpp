@@ -13,6 +13,11 @@ struct ListNode {
 
 	static
 	ListNode* Create(std::vector<int>&& vec) {
+		return Create(vec);
+	}
+
+	static
+	ListNode* Create(std::vector<int>& vec) {
 		if (vec.empty()) {
 			return nullptr;
 		}

@@ -1,5 +1,5 @@
-#ifndef __TREE_1_HPP__
-#define __TREE_1_HPP__
+#ifndef __BINARY_TREE_2_HPP__
+#define __BINARY_TREE_2_HPP__
 
 #include "solution.hpp"
 // 给你一个二叉树，请你返回其按 层序遍历 得到的节点值。 （即逐层地，从左到右访问所有节点）。
@@ -40,9 +40,9 @@
 // ]
 
 
-class SolutionTree1 : public Solution{
+class SolutionTree2 : public Solution{
 public:	
-	~SolutionTree1() {
+	~SolutionTree2() {
         if(input_) {
             TreeNode::Free(&input_);
         }
@@ -117,4 +117,4 @@ private:
 
 
 
-#endif //__TREE_1_HPP__
+#endif //__BINARY_TREE_2_HPP__

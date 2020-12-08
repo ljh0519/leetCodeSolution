@@ -10,6 +10,7 @@ int main(int argc, char* argv[]) {
 
 	Solution* su = Solution::create(argv[1]);
     if(!su) {
+        std::cout << "input error : " << argv[1] << std::endl;
         return 0;
     }
 

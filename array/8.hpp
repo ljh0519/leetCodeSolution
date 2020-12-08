@@ -30,7 +30,8 @@ public:
     virtual void solution() override {
         // input1_ = {-1, 0, 1, 2, -1, -4};       //
         // input1_ = {0, 0, 0, 0};       //
-        input1_ = {-1,2,1,-4}, target_ = 1;      
+        // input1_ = {-1,2,1,-4}, target_ = 1;      
+        input1_ = {0,-4,1,-5}, target_ = 0;      
 
 		timer_.calc([this]() -> void* {
 			output_ = threeSumClosest(input1_, target_);
@@ -46,22 +47,22 @@ public:
         timer_.dump();
     }
 
-    //172ms     20MB
+    //16ms      10.1MB
     int threeSumClosest(std::vector<int>& nums, int target) {
         if(nums.size() < 3){
             return 0; 
         }
 
-        int sumClosest = nums[0] + nums[1] + nums[2];
-        int dt = distance(target - nums[0] + nums[1] + nums[2]);
         std::sort(nums.begin(), nums.end());
+        int sumClosest = nums[0] + nums[1] + nums[2];
+        int dt = distance(target - sumClosest);
         int size = nums.size();
         for(int i = size - 1; i >= 2 ; --i) {
             if(i < size - 1 && nums[i] == nums[i+1]) {
                 continue;
             }
 
-            int m = 0, n = i - 1, mtarget = target - nums[i];
+            int m = 0, n = i - 1;
             while(m < n) {
                 if(m > 0 && nums[m] == nums[m - 1]) {
                     ++m;
@@ -71,16 +72,17 @@ public:
                     continue;
                 }
 
-                int ndt = (mtarget - nums[m] - nums[n]);
-                if(ndt == dt) {
+                int diff = target - nums[i] - nums[m] - nums[n];
+                int ndt = distance(diff);
+                if(0 == ndt) {
                     return nums[m] + nums[n] + nums[i];
                 } else if(ndt < dt) {
                     sumClosest = nums[m] + nums[n] + nums[i];
                     dt = ndt;
-                    ++m;
-                    --n;
-                } else if (ndt > dt) {
-                    if(nums[m] > nums[n]) {
+                }
+
+                if (ndt >= dt) {
+                    if(diff > 0) {
                         ++m;
                     } else {
                         --n;
