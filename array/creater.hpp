@@ -10,6 +10,8 @@
 #include "../array/7.hpp"
 #include "../array/8.hpp"
 #include "../array/9.hpp"
+#include "../array/10.hpp"
+#include "../array/***11.hpp"
 
 
 namespace XArray {
@@ -24,6 +26,8 @@ namespace XArray {
             case 7 : return new SolutionArray7();
             case 8 : return new SolutionArray8();
             case 9 : return new SolutionArray9();
+            case 10 : return new SolutionArray10();
+            case 11 : return new SolutionArray11();
 
             default: return nullptr;
         }

@@ -19,7 +19,7 @@ Solution* Solution::create(const std::string& type) {
         if(search == std::string::npos) {
             return nullptr;
         }
-        prefix = type.substr(0, search - 1);
+        prefix = type.substr(0, search);
         index = atoi(type.substr(search+1, type.size() - search - 1).c_str());
 
     }

@@ -9,6 +9,10 @@
 #include "../str/***6.hpp"
 #include "../str/7.hpp"
 #include "../str/8.hpp"
+#include "../str/9.hpp"
+#include "../str/***10.hpp"
+#include "../str/11.hpp"
+#include "../str/12.hpp"
 
 
 namespace XStr {
@@ -22,6 +26,10 @@ namespace XStr {
             case 6 : return new SolutionStr6();
             case 7 : return new SolutionStr7();
             case 8 : return new SolutionStr8();
+            case 9 : return new SolutionStr9();
+            case 10 : return new SolutionStr10();
+            case 11 : return new SolutionStr11();
+            case 12 : return new SolutionStr12();
             
             default: return nullptr;
         }

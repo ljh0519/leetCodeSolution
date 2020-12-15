@@ -48,6 +48,9 @@
         "ctime": "cpp",
         "ratio": "cpp",
         "cstring": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "regex": "cpp",
+        "bitset": "cpp",
+        "set": "cpp"
     }
 }

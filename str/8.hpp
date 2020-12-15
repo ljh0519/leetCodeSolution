@@ -42,11 +42,12 @@ public:
 
     virtual void solution() override {
 
-        input_ = "23";
-        // input_ = "23";
-        // input_ = "23";
-        // input_ = "23";
-        // input_ = "23";
+        // input_ = "()";
+        // input_ = ")(";
+        // input_ = "()[]{}";
+        // input_ = "(]";
+        // input_ = "([)]";
+        input_ = "{[]}";
 
 		timer_.calc([this]() -> void* {
 			output_ = isValid(input_);
@@ -61,8 +62,30 @@ public:
     }
 
     bool isValid(std::string s) {
-        
-        return true;
+        int size = s.size();
+        std::vector<int> stack;
+        for(int i = 0 ; i < size; ++i) {
+            if('(' == s[i]
+            || '{' == s[i]
+            || '[' == s[i]) {
+                stack.push_back(s[i]);
+            } else if (stack.empty()) {
+                return false;
+            } else if (')' == s[i]
+            || '}' == s[i]
+            || ']' == s[i]) {
+                char chr = stack.back();
+                if('(' == chr && ')' == s[i]
+                || '{' == chr && '}' == s[i]
+                || '[' == chr && ']' == s[i]) {
+                    stack.pop_back();
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        return stack.empty() ? true : false;
     }
 
 private:

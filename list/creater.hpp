@@ -7,6 +7,7 @@
 #include "../list/4.hpp"
 #include "../list/5.hpp"
 #include "../list/6.hpp"
+#include "../list/7.hpp"
 
 
 namespace XList {
@@ -18,6 +19,7 @@ namespace XList {
             case 4 : return new SolutionList4();
             case 5 : return new SolutionList5();
             case 6 : return new SolutionList6();
+            case 7 : return new SolutionList7();
             
             default: return nullptr;
         }
