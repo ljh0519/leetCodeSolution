@@ -60,36 +60,9 @@ public:
     }
 
 
+    //当石子是4的倍数时，先手总是输（只要对手将一回合拿掉的石子保持4，那么剩余石子永远是4的倍数），当石子被4除后余1~3，先手总赢
     bool canWinNim(int n) {
-        if(n <= 3) {
-            return true;
-        }
-
-        std::vector<bool> cache(n+1, -1);
-        cache[0] = false;
-        cache[1] = true;
-        cache[2] = true;
-        cache[3] = true;
-
-        for(int i = 4; i < n+1; ++i) {
-            cache[i] = canWinNimRecu(false, i-1) || canWinNimRecu(false, i-2) || canWinNimRecu(false, i-3);
-        }
-
-        return cache[n];
-    }
-
-    bool canWinNimRecu(std::vector<bool> cache, bool mod, int n) {
-        if(n <= 3) {
-            return mod;
-        } else if (mod && cache[n] != -1) {
-            return cache[n];
-        }
-
-        mod = !mod;
-
-        cache[n] = canWinNimRecu(mod, n-1) || canWinNimRecu(mod, n-2) || canWinNimRecu(mod, n-3);
-
-        return cache[n];
+        return n%4 > 0;
     }
 
 private:

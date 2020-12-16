@@ -13,6 +13,7 @@
 #include "../str/***10.hpp"
 #include "../str/11.hpp"
 #include "../str/12.hpp"
+#include "../str/13.hpp"
 
 
 namespace XStr {
@@ -30,6 +31,7 @@ namespace XStr {
             case 10 : return new SolutionStr10();
             case 11 : return new SolutionStr11();
             case 12 : return new SolutionStr12();
+            case 13 : return new SolutionStr13();
             
             default: return nullptr;
         }
