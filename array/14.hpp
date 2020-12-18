@@ -2,6 +2,7 @@
 #ifndef __ARRAY14_HPP__
 #define __ARRAY14_HPP__
 
+#include "memory.h"
 #include "solution.hpp"
 
 // 36. 有效的数独
@@ -68,7 +69,29 @@ public:
 	~SolutionArray14() {}
 
     virtual void solution() override {   
-        // input_ = {5,7,8,10}, target_ = 8;      
+        input_ = {
+                {'5','3','.','.','7','.','.','.','.'},
+                {'6','.','.','1','9','5','.','.','.'},
+                {'.','9','8','.','.','.','.','6','.'},
+                {'8','.','.','.','6','.','.','.','3'},
+                {'4','.','.','8','.','3','.','.','1'},
+                {'7','.','.','.','2','.','.','.','6'},
+                {'.','6','.','.','.','.','2','8','.'},
+                {'.','.','.','4','1','9','.','.','5'},
+                {'.','.','.','.','8','.','.','7','9'}
+                };
+    
+        // input_ = {
+        //         {'8','3','.','.','7','.','.','.','.'},
+        //         {'6','.','.','1','9','5','.','.','.'},
+        //         {'.','9','8','.','.','.','.','6','.'},
+        //         {'8','.','.','.','6','.','.','.','3'},
+        //         {'4','.','.','8','.','3','.','.','1'},
+        //         {'7','.','.','.','2','.','.','.','6'},
+        //         {'.','6','.','.','.','.','2','8','.'},
+        //         {'.','.','.','4','1','9','.','.','5'},
+        //         {'.','.','.','.','8','.','.','7','9'}
+        //         };
      
 
 		timer_.calc([this]() -> void* {
@@ -78,7 +101,7 @@ public:
     }
 
     virtual void dump() override {
-        std::cout << "input : ";
+        std::cout << "input : " << std::endl;
         for(auto& str : input_) {
             std::cout << vec2Str(str, ",") << std::endl;
         }
@@ -86,46 +109,72 @@ public:
         timer_.dump();
     }
 
+    //36ms      可以继续优化，开辟3个9x9的cache，保存出现过的数，如果重复就返回false，这样只需要遍历依次棋盘
     bool isValidSudoku(std::vector<std::vector<char>>& board) {
-        for(int i = 0; i < 10; ++i) {
+        for(int i = 0; i < 9; ++i) {
             if(!isValidRow(board, i)) {
                 return false;
             }
-            if(0 == i%3) {
-
+            if(!isValidColumn(board, i)) {
+                return false;
+            }
+            if(0 == i%3 && !isValidLattice(board,i)) {
+                return false;
             }
         }
+        return true;
     }
 
+private:
     bool isValidRow(std::vector<std::vector<char>>& board, int row) {
         const auto& row_data = board[row];
-        char row_valid[10] = {};
-        char column_valid[10] = {};
-        for(int i = 0; i < 10; ++i) {
+        char row_valid[9] = {};
+        for(int i = 0; i < 9; ++i) {
+            char index = row_data[i] - '1';
             if('.' == row_data[i]) {
                 continue;
             }
-            if(1 == row_valid[row_data[i]]) {
+            if(1 == row_valid[index]) {
                 return false;
             }
-            row_valid[row_data[i]] = 1;
-            for(int j = 0; j < 10; ++j) {
-                if('.' == board[j][i]) {
-                    continue;
-                }
-                if(1 == column_valid[board[j][i]]) {
-                    return false;
-                }
-                column_valid[board[j][i]] = 1;
-            }
+            row_valid[index] = 1;
         }
+        return true;
     }
 
-    bool isValidLattice(std::vector<std::vector<char>>& board, i`nt row) {
-        char lattice[10] = {};
-        for(int i = 0; i < 3; ++i) {
-
+    bool isValidColumn(std::vector<std::vector<char>>& board, int column) {
+        char column_valid[9] = {};
+        for(int j = 0; j < 9; ++j) {
+            char index = board[j][column] - '1';
+            if('.' == board[j][column]) {
+                continue;
+            }
+            if(1 == column_valid[index]) {
+                return false;
+            }
+            column_valid[index] = 1;
         }
+        return true;
+    }
+
+    bool isValidLattice(std::vector<std::vector<char>>& board, int row) {
+        char lattice[9] = {};
+        for(int i = 0; i < 3; ++i) {
+            for(int j = i*3; j < (i+1)*3; ++j) {
+                for(int m = 0; m < 3; ++m) {
+                    char index = board[row+m][j] - '1';
+                    if('.' == board[row+m][j]) {
+                        continue;
+                    }
+                    if(1 == lattice[index]) {
+                        return false;
+                    }
+                    lattice[index] = 1;
+                }
+            }
+            memset(lattice, 0x0, 9);
+        }
+        return true;
     }
 
 private:

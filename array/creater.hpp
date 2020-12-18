@@ -15,6 +15,12 @@
 #include "../array/12.hpp"
 #include "../array/13.hpp"
 #include "../array/14.hpp"
+#include "../array/15.hpp"
+#include "../array/16.hpp"
+#include "../array/17.hpp"
+#include "../array/18.hpp"
+#include "../array/19.hpp"
+#include "../array/20.hpp"
 
 
 namespace XArray {
@@ -34,6 +40,12 @@ namespace XArray {
             case 12 : return new SolutionArray12();
             case 13 : return new SolutionArray13();
             case 14 : return new SolutionArray14();
+            case 15 : return new SolutionArray15();
+            case 16 : return new SolutionArray16();
+            case 17 : return new SolutionArray17();
+            case 18 : return new SolutionArray18();
+            case 19 : return new SolutionArray19();
+            case 20 : return new SolutionArray20();
 
             default: return nullptr;
         }
