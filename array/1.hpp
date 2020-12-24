@@ -56,11 +56,27 @@ public:
 		});
     }
 
-    virtual void dump() override {
+    void test() {
+        dumpInput();
+
+        timer_.calc([this]() -> void* {
+			int size = removeDuplicates(arr_);
+            std::cout << "size=" << size << std::endl;
+            return nullptr;
+		});
+
+         dumpOutput();
+    }
+
+    virtual void dumpInput() override {
         for_each(arr_.begin(), arr_.end(), [](int i){std::cout << i << ",";});
         std::cout << std::endl;
+    }
+
+    virtual void dumpOutput() override {
 		std::cout << arr_.size() << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     //32ms      13.7MB

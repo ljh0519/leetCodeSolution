@@ -41,23 +41,39 @@ public:
 
     virtual void solution() override {
 
-        input_ = "dog cat cat dog", pattern_ = "abba";
-        // input_ = "dog cat cat fish", pattern_ = "abba";
-        // input_ = "dog cat cat dog", pattern_ = "aaaa";
-        // input_ = "dog dog dog dog", pattern_ = "abba";
+        X_SOLUTION_TEST(true, input_ = "dog cat cat dog", pattern_ = "abba");
+        X_SOLUTION_TEST(false, input_ = "dog cat cat fish", pattern_ = "abba");
+        X_SOLUTION_TEST(false, input_ = "dog cat cat dog", pattern_ = "aaaa");
+        X_SOLUTION_TEST(false, input_ = "dog dog dog dog", pattern_ = "abba");
+    }
+
+   void test(bool expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			output_ = wordPattern(pattern_, input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input : " << input_ << std::endl;
         std::cout << "pattern : " << pattern_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : " << output_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
+
 
     //
     bool wordPattern(std::string pattern, std::string s) {

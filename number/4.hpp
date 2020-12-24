@@ -53,24 +53,41 @@ public:
 
     virtual void solution() override {   
         
-        // input_ = 100;       //C
-        // input_ = 940;        //CMXL
-        // input_ = 3;         //"III"
-        // input_ = 4;          //IV
-        // input_ = 9;          //IX
-        // input_ = 58;          //LVIII
-        input_ = 1994;         //MCMXCIV
+        X_SOLUTION_TEST("C", input_ = 100);
+        X_SOLUTION_TEST("CMXL", input_ = 940);
+        X_SOLUTION_TEST("III", input_ = 3);
+        X_SOLUTION_TEST("IV", input_ = 4);
+        X_SOLUTION_TEST("LVIII", input_ = 58);
+        X_SOLUTION_TEST("IX", input_ = 9 );
+        X_SOLUTION_TEST("MCMXCIV", input_ = 1994);
+
+
+    }
+
+   void test(const char* expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			out_ = intToRoman(input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != out_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
-        std::cout << "number : " << input_ << std::endl;
-        std::cout << "roman : " << out_ << std::endl;
+    virtual void dumpInput() override {
+        std::cout << "input : " << input_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
+        std::cout << "output : " << out_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     //0ms       6.2MB

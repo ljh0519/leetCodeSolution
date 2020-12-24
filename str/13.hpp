@@ -37,24 +37,38 @@ public:
 
     virtual void solution() override {
 
-        // input_ = "abccccdd";
-        input_ = "AB";
-        input_ = "ABA";
-        // input_ = "dog cat cat dog";
-        // input_ = "dog cat cat dog";
-        
+        X_SOLUTION_TEST(7, input_ = "abccccdd");
+        X_SOLUTION_TEST(1, input_ = "AB");
+        X_SOLUTION_TEST(3, input_ = "ABA");
+
+    }
+
+   void test(int expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			output_ = longestPalindrome( input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input : " << input_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : " << output_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
+
 
     //
     int longestPalindrome(std::string s) {

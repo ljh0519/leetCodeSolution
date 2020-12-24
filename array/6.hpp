@@ -26,22 +26,35 @@ public:
 	~SolutionArray6() {}
 
     virtual void solution() override {
-        // input_ = {"flower","flow","flight"};       //fl
-        input_ = {"dog","racecar","car"};       //
+        X_SOLUTION_TEST("fl", input_ = {"flower","flow","flight"});
+        X_SOLUTION_TEST("", input_ = {"dog","racecar","car"});
 
-		timer_.calc([&]() -> void* {
+    }
+
+    void test(const char* expect) {
+        dumpInput();
+
+		timer_.calc([this]() -> void* {
 			out_ = longestCommonPrefix(input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != out_) {
+            std::cout << "expect != output : " << expect << " != " << out_ << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
-        std::cout << "input : " << std::endl;
-        for(int i = 0; i < input_.size(); ++i) {
-            std::cout << "    " << input_[i] << std::endl;
-        }
+    virtual void dumpInput() override {
+        std::cout << "input : " << vec2Str(input_) << std::endl;
+    }
+
+    virtual void dumpOutput() override {
 		std::cout << "out = " << out_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     //

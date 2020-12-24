@@ -12,8 +12,8 @@
             "args": [
                 // "number-9"
                 // "list-7"
-                // "str-14"
-                "array-20"
+                "str-15"
+                // "array-20"
                 // "tree-1"
             ],
             "stopAtEntry": false,

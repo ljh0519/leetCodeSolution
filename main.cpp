@@ -15,7 +15,6 @@ int main(int argc, char* argv[]) {
     }
 
 	su->solution();
-    su->dump();
 
     Solution::free(&su);
 

@@ -29,31 +29,43 @@ public:
 	~SolutionNumber2() {}
 
     virtual void solution() override {    //取值范围 [−2^31,  2^31 − 1] = [-2147483648, 2147483647]
-        int target;
-        std::vector<int> input;
 
-        // target = 9, input = {2, 5, 7, 11, 15};
-        target = 6, input = {3, 2, 3, 4};
+        X_SOLUTION_TEST(std::vector<int>({0,1}), target_ = 9, input_ = {2, 7, 11, 15});
+        X_SOLUTION_TEST(std::vector<int>({1,2}), target_ = 6, input_ = {3, 2, 4});
         // target = 9, input = {2, 5, 7, 11, 15};
         // target = 9, input = {2, 5, 7, 11, 15};
         // target = 9, input = {2, 5, 7, 11, 15};
 
-		timer_.calc([this, &input, &target]() -> void* {
-			out_ = twoSum(input, target);
+
+    }
+
+   void test(std::vector<int>&& expect) {
+        dumpInput();
+
+		timer_.calc([this]() -> void* {
+			out_ = twoSum(input_, target_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != out_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
-        for_each(out_.begin(), out_.end(), [](int i) {
-            std::cout << i << ", ";
-        });
-        std::cout << std::endl;
+    virtual void dumpInput() override {
+        std::cout << "input : " << vec2Str(input_) << std::endl;
+        std::cout << "target : " << target_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
+        std::cout << "output : " << vec2Str(out_) << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
-
- 
 
     // 368ms        52.2MB
     std::vector<int> twoSum(std::vector<int>& nums, int target) {
@@ -130,6 +142,8 @@ public:
 
 private:
     std::vector<int> out_;
+    std::vector<int> input_;
+    int target_;
 };
 
 

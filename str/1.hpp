@@ -25,25 +25,43 @@ public:
 	~SolutionStr1() {}
 
     virtual void solution() override {
-        std::string sub;
-
-        // str_ = "hello",sub = "ll";
+        
+        X_SOLUTION_TEST("llo", input1_ = "hello",input2_ = "ll");
         // str_ = "substring searching algorithm",sub = "search";
         // str_ = "bbc abcdab abcdabcdabde",sub = "abcdabd";
         // str_ = "mississippi", sub = "issi";
         // str_ = "ababcaababcaabc", sub = "ababcaabc";
-        int pos;
-		timer_.calc([this, sub]() -> void* {
-			pos_ = strStr(str_, sub);
-            return nullptr;
-		});
+
     }
 
-    virtual void dump() override {
-        std::cout << str_.c_str() + pos_ << std::endl;
+   void test(const char* expect) {
+        dumpInput();
+
+		timer_.calc([this]() -> void* {
+			pos_ = strStr(input1_, input2_);
+            return nullptr;
+		});
+
+        dumpOutput();
+        if(expect != (input1_.c_str() + pos_)) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
+    }
+
+    virtual void dumpInput() override {
+        std::cout << "input1 : " << input1_ << std::endl;
+        std::cout << "input2 : " << input2_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
+        std::cout << "output : " << input1_.c_str() + pos_ << std::endl;
         std::cout << "pos=" << pos_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
+
 
     //Sunday算法
     int strStr(std::string haystack, std::string needle) {
@@ -85,7 +103,8 @@ public:
     }
 
 private:
-    std::string str_;
+    std::string input1_;
+    std::string input2_;
     int pos_;
 };
 

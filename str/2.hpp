@@ -34,19 +34,36 @@ public:
         // input_ = "bbbbb";   //b 1
         // input_ = "pwwkew";   //wke 3
         // input_ = "dvdf";   //vdf 3
-        input_ = "abba";   //ab 2
+        X_SOLUTION_TEST(2, input_ = "abba");   //ab 2
         // input_ = "qwertyuiopasdfghjkl;'[]\\zxcvbnm,./=-0987654321`~!@#$%^&*()_+<>?:\"{}|";   // 68
+
+
+    }
+
+   void test(int expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			len_ = lengthOfLongestSubstring(input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != len_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input : " << input_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : " << len_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     //0-12ms        7.1MB

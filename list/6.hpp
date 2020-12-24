@@ -40,18 +40,38 @@ public:
 
         input2_ = ListNode::Create(input1_);
 
+
+    }
+
+   void test(std::vector<int>& expect) {
+        dumpInput();
+
 		timer_.calc([this]() -> void* {
 			out_ = removeNthFromEnd(input2_, n_);
             return nullptr;
 		});
+
+        dumpOutput();
+        // if(expect != output_) {
+        //     std::cout << "expect != output"  << std::endl;
+        //     std::cout << "failed test!." << std::endl;
+        //     exit(0);
+        // }
+		if(out_) {
+			ListNode::free(&out_);
+		}
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "intput1 : " << vec2Str(input1_) << std::endl;
         std::cout << "n : " << n_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : ";
         ListNode::dump(out_);
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     //8ms       10.9MB

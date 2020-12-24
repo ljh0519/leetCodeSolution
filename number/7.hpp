@@ -21,28 +21,37 @@ public:
 
     virtual void solution() override {   
         
-        // input_ = {-2,1,-3,4,-1,2,1,-5,4};   //  6
-        // input_ = {1,-2};   //  1
-        // input_ = {-10,-2, -8, -9};   //  1
+        X_SOLUTION_TEST(6, input_ = {-2,1,-3,4,-1,2,1,-5,4});
+        X_SOLUTION_TEST(1, input_ = {1,-2});
+        X_SOLUTION_TEST(1, input_ = {-10,-2, -8, -9});
+
+
+    }
+
+   void test(int expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			out_ = maxSubArray(input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != out_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
-        std::cout << "input : ";
-        for(int i = 0; i < input_.size(); ++i) {
-            if(0 == i) {
-                std::cout << input_[i];
-            } else {
-                std::cout << ", " << input_[i];
-            }
-        }
-        std::cout << std::endl;
-        std::cout << "out : " << out_ << std::endl;
+    virtual void dumpInput() override {
+        std::cout << "input : " << vec2Str(input_) << std::endl;
+    }
+
+    virtual void dumpOutput() override {
+        std::cout << "output : " << out_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
 

@@ -38,23 +38,39 @@ public:
 
     virtual void solution() override {
 
-        // input_ = "LEETCODEISHIRING", numRows_ = 3, test_ = "LCIRETOESIIGEDHN";
-        // input_ = "LEETCODEISHIRING", numRows_ = 4, test_ = "LDREOEIIECIHNTSG";
-        // input_ = "LEETCODEISHIRING", numRows_ = 5, test_ = "LIEESGEDHNTOIICR";  
-        input_ = "AB", numRows_ = 1, test_ = "AB";  
+        X_SOLUTION_TEST("AB", input_ = "AB", numRows_ = 1);  
+        X_SOLUTION_TEST("LIEESGEDHNTOIICR", input_ = "LEETCODEISHIRING", numRows_ = 5);  
+        X_SOLUTION_TEST("LDREOEIIECIHNTSG", input_ = "LEETCODEISHIRING", numRows_ = 4);  
+        X_SOLUTION_TEST("LCIRETOESIIGEDHN", input_ = "LEETCODEISHIRING", numRows_ = 3);  
+
+
+    }
+
+   void test(const char* expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			output_ = convert(input_, numRows_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "numRows : " << numRows_ << std::endl;
         std::cout << "input : " << input_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : " << output_ << std::endl;
-        std::cout << "expected : " << (test_ == output_) << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
 
@@ -87,7 +103,6 @@ private:
     int numRows_;
     std::string input_;
     std::string output_;
-    std::string test_;
 };
 
 

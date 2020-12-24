@@ -45,20 +45,36 @@ public:
 	~SolutionArray10() {}
 
     virtual void solution() override {   
-        input_ = {3,2,1};      
-        // input_ = {9,2,6,5,2,0};      
-        input_ = {2,3,1,3,3};  //[2,3,3,1,3]
-        // input_ = {7,1};      
+        X_SOLUTION_TEST(std::vector<int>({1,2,3}), input_ = {3,2,1}); 
+        X_SOLUTION_TEST(std::vector<int>({9,5,0,2,2,6}), input_ = {9,2,6,5,2,0}); 
+        X_SOLUTION_TEST(std::vector<int>({2,3,3,1,3}), input_ = {2,3,1,3,3}); 
+
+    }
+
+    void test(std::vector<int>&& expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			nextPermutation(input_);
             return nullptr;
 		});
+
+        dumpInput();
+        dumpOutput();
+        if(expect != input_) {
+            std::cout << "expect != output : " << vec2Str(expect) << " != " << vec2Str(input_) << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input : " << vec2Str(input_) << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     void nextPermutation(std::vector<int>& nums) {

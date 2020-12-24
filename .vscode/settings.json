@@ -51,6 +51,11 @@
         "queue": "cpp",
         "regex": "cpp",
         "bitset": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "bit": "cpp",
+        "condition_variable": "cpp",
+        "mutex": "cpp",
+        "shared_mutex": "cpp",
+        "thread": "cpp"
     }
 }

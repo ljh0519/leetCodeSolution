@@ -50,23 +50,36 @@ public:
 	~SolutionArray2() {}
 
     virtual void solution() override {
-        // arr_ = {1};         //val=1,val=2
-        arr_ = {1, 1};      //val=1,val=2
-        // arr_ = {1,3,3,5,6}; //val=3,val=5
-        int val = 3;
-        int size;
-		timer_.calc([this, val, &size]() -> void* {
-			size = removeElement(arr_, val);
-            return nullptr;
-		});
-        std::cout << "size=" << size << std::endl;
+        X_SOLUTION_TEST(0, arr_ = {1, 1}, val_ = 1);      //val=1,val=2
+
+
     }
 
-    virtual void dump() override {
-        for_each(arr_.begin(), arr_.end(), [](int i){std::cout << i << ",";});
-        std::cout << std::endl;
-		std::cout << arr_.size() << std::endl;
+    void test(int expect) {
+        dumpInput();
+
+		timer_.calc([this]() -> void* {
+			output_ = removeElement(arr_, val_);
+            return nullptr;
+		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output : " << expect << " != " << output_ << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
+    }
+
+    virtual void dumpInput() override {
+        std::cout << "input : " << vec2Str(arr_) << std::endl;
+        std::cout << "val : " << val_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
+		std::cout << output_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     //4ms       8.9MB
@@ -88,6 +101,8 @@ public:
 
 private:
     std::vector<int> arr_;
+    int val_;
+    int output_;
 };
 
 

@@ -57,37 +57,50 @@ public:
 
     virtual void solution() override {
 
-        // input_ = "42";  
-        // input_ = "AB";  
-        // input_ = "   -42";  
-        // input_ = "4193 with words";  
-        // input_ = "words and 987";  
-        // input_ = "-91283472332";  
-        // input_ = "   -";  
-        // input_ = "   -9";  
-        // input_ = "   9";  
-        // input_ = "09";  
-        // input_ = "    ";  
-        // input_ = "-2147483648";  
-        // input_ = "2147483648";  
-        // input_ = "+2147483648";  
-        // input_ = "+2147483647";  
-        // input_ = "    +111111";  
-        // input_ = "    +";  
-        // input_ = "    2000000000000000000000000";  
-        // input_ = "    0000000000000000000000002";  
-        // input_ = "    -0000000000000000000112233";  
+        X_SOLUTION_TEST(42, input_ = "42");  
+        X_SOLUTION_TEST(0, input_ = "AB");  
+        X_SOLUTION_TEST(-42, input_ = "   -42");  
+        X_SOLUTION_TEST(4193, input_ = "4193 with words");  
+        X_SOLUTION_TEST(-2147483648, input_ = "-91283472332");  
+        X_SOLUTION_TEST(0, input_ = "words and 987");  
+        X_SOLUTION_TEST(0, input_ = "   -");  
+        X_SOLUTION_TEST(-9, input_ = "   -9");  
+        X_SOLUTION_TEST(9, input_ = "   9");  
+        X_SOLUTION_TEST(9, input_ = "09");  
+        X_SOLUTION_TEST(0, input_ = "    ");  
+        X_SOLUTION_TEST(-2147483648, input_ = "-2147483648");  
+        X_SOLUTION_TEST(2147483647, input_ = "+2147483648");  
+        X_SOLUTION_TEST(2147483647, input_ = "    2000000000000000000000000");  
+        X_SOLUTION_TEST(2, input_ = "    0000000000000000000000002");  
+        X_SOLUTION_TEST(-112233, input_ = "    -0000000000000000000112233");  
+
+    }
+
+
+   void test(int expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			output_ = myAtoi(input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input : " << input_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : " << output_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
 

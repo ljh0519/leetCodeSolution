@@ -30,21 +30,37 @@ public:
     virtual void solution() override {
         // input1_ = {-1, 0, 1, 2, -1, -4};       //
         // input1_ = {0, 0, 0, 0};       //
-        // input1_ = {-1,2,1,-4}, target_ = 1;      
-        input1_ = {0,-4,1,-5}, target_ = 0;      
+        X_SOLUTION_TEST(0, input_ = {0,-4,1,-5}, target_ = 0);      
+        X_SOLUTION_TEST(0, input_ = {-1,2,1,-4}, target_ = 1);      
 
-		timer_.calc([this]() -> void* {
-			output_ = threeSumClosest(input1_, target_);
-            return nullptr;
-		});
+
     }
 
-    virtual void dump() override {
-        std::cout << "input : ";
-        std::cout << vec2Str(input1_) << std::endl;
+    void test(int expect) {
+        dumpInput();
+
+		timer_.calc([this]() -> void* {
+			output_ = threeSumClosest(input_, target_);
+            return nullptr;
+		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output : " << expect << " != " << output_ << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
+    }
+
+    virtual void dumpInput() override {
+        std::cout << "input : " << vec2Str(input_) << std::endl;
         std::cout << "target : " << target_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : " << output_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     //16ms      10.1MB
@@ -99,7 +115,7 @@ public:
     }
 
 private:
-    std::vector<int> input1_;
+    std::vector<int> input_;
     int target_;
     int output_;
 };

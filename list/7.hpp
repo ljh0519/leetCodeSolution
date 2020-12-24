@@ -31,26 +31,44 @@ public:
 
     virtual void solution() override {   
 
-        input11_ = {1,2,4}, input22_ = {1,3,4};
+        // input11_ = {1,2,4}, input22_ = {1,3,4};
         // input11_ = {1,2,3,4,5}, input22_ = {};
         // input11_ = {1,2,3,4,5}, input22_ = {};
         // input11_ = {1,2,3,4,5}, input22_ = {};
 
-        input1_ = ListNode::Create(input11_);
-        input2_ = ListNode::Create(input22_);
+        X_SOLUTION_TEST(std::vector<int>({}), input1_ = ListNode::Create(input11_), input2_ = ListNode::Create(input22_));
+
+    }
+
+   void test(std::vector<int>&& expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			out_ = mergeTwoLists(input1_, input2_);
             return nullptr;
 		});
+
+        dumpOutput();
+        // if(expect != output_) {
+        //     std::cout << "expect != output"  << std::endl;
+        //     std::cout << "failed test!." << std::endl;
+        //     exit(0);
+        // }
+		if(out_) {
+			ListNode::free(&out_);
+		}
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "intput1 : " << vec2Str(input11_) << std::endl;
         std::cout << "intput2 : " << vec2Str(input22_) << std::endl;
-        std::cout << "output : ";
-        ListNode::dump(out_);
+    }
+
+    virtual void dumpOutput() override {
+		std::cout << "output : ";
+		ListNode::dump(out_);
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     //12ms      15MB

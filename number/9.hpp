@@ -44,19 +44,34 @@ public:
 
     virtual void solution() override {   
         
-        input_ = 1; 
+        X_SOLUTION_TEST(std::vector<std::string>({"1:00", "2:00", "4:00", "8:00", "0:01", "0:02", "0:04", "0:08", "0:16", "0:32"}), input_ = 1); 
 
+    }
+
+   void test(std::vector<std::string>&& expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			out_ = readBinaryWatch(input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != out_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
-        std::cout << "input : " << input_ << std::endl;
-        std::cout << "out : " << vec2Str(out_) << std::endl;
+    virtual void dumpInput() override {
+        std::cout << "input : " << (input_) << std::endl;
+    }
+
+    virtual void dumpOutput() override {
+        std::cout << "output : " << vec2Str(out_) << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
 

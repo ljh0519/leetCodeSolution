@@ -39,84 +39,91 @@ public:
 	~SolutionArray20() {}
 
     virtual void solution() override {   
-        
-        // input_ = {0,1,0,2,1,0,1,3,2,1,2,1};      //6
-        // input_ = {1,1,0,2,2,3,1,0,1,3,3,3,2,1,2,2,2,1}; //6
-        input_ = {4,2,0,3,2,5}; //9
+
+        X_SOLUTION_TEST(6, input_ = {0,1,0,2,1,0,1,3,2,1,2,1});
+        X_SOLUTION_TEST(83, input_ = {6,4,2,0,3,2,0,3,1,4,5,3,2,7,5,3,0,1,2,1,3,4,6,8,1,3});
+        X_SOLUTION_TEST(9, input_ = {1,1,0,2,2,3,1,0,1,3,3,3,2,1,2,2,2,1});
+        X_SOLUTION_TEST(9, input_ = {4,2,0,3,2,5});
+        X_SOLUTION_TEST(1, input_ = {5,4,1,2});
+        X_SOLUTION_TEST(34, input_ = {8,0,8,1,0,9,6,0,7,2,5});
      
+    }
+
+    void test(int expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			output_ = trap(input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input : " << vec2Str(input_) << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : " << output_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
-    //
-    int trap(std::vector<int>& height) {
-        int size = height.size(); 
-        if(size < 3) return 0;
+    //12ms
+	int trap(std::vector<int>& height) {
+		int n = height.size();
+		// left[i]表示i左边的最大值，right[i]表示i右边的最大值
+		std::vector<int> left(n), right(n);
+		for (int i = 1; i < n; i++) {
+			left[i] = std::max(left[i - 1], height[i - 1]);
+		}
+		for (int i = n - 2; i >= 0; i--) {
+			right[i] = std::max(right[i + 1], height[i + 1]);
+		}
+		int water = 0;
+		for (int i = 0; i < n; i++) {
+			int level = std::min(left[i], right[i]);
+			water += std::max(0, level - height[i]);
+		}
+		return water;
+	}
 
-        int area = 0;
-        int leftTurnPoint = 0, rightTurnPoint = size - 1;
+    //12ms
+    // int trap(std::vector<int>& height) {
+    //     if(height.size() < 3) return 0;
+    //     int area = 0;
+    //     int left = 0, right = height.size() - 1;
+    //     int left_max = height[left], right_max = height[right];
 
-        // if(1 < size && height[0] > height[1]) {
-        //     leftTurnPoint = 0;
-        // }
-        // for(int i = 1; i+1 < size; ++i) {
-        //     if(height[i] > height[i+1] && height[i-1] < height[i]) {    //找到拐点
-        //         if(-1 == leftTurnPoint)  leftTurnPoint = i;
-        //         else if (-1 == rightTurnPoint)   rightTurnPoint = i;
-        //     } else if(-1 == leftTurnPoint && height[i] > height[i+1] && height[i-1] == height[i]) {
-        //         leftTurnPoint = i;
-        //     } else if(-1 == rightTurnPoint && height[i] == height[i+1] && height[i-1] < height[i]) {
-        //         rightTurnPoint = i;
-        //     }
-        //     if(-1 != leftTurnPoint && -1 != rightTurnPoint) {
-        //         area += calcTrapArea(height, leftTurnPoint, rightTurnPoint);
-        //         leftTurnPoint = rightTurnPoint;
-        //         rightTurnPoint = -1;
-        //     }
-        // }
+    //     while( left <= right) {
+    //         if(left_max <= right_max) {
+    //             if(left_max > height[left]) {
+    //                 area += left_max - height[left];
+    //             } else {
+    //                 left_max = height[left];
+    //             }
 
-        if constexpr (std::is_integral<int>::value) {
+    //             ++left;
+    //         } else {
+    //             if(right_max > height[right]) {
+    //                 area += right_max - height[right];
+    //             } else {
+    //                 right_max = height[right];
+    //             }
 
-        } else {
-            
-        }
+    //             --right;
+    //         }
+    //     }
 
-        return area;
-    }
+    //     return area;
+    // }
 
-private:
-    int trapRecu(std::vector<int>& height, int left, int right) {
-        
-        int sub_left = left;
-        int sub_right = right;
-        int left_max = height[left];
-        int right_max = height[right]; 
-        for(left++, right--; left < right; ++left) {
-            if(left_max < height[left])
-        }
-    }
-    int calcTrapArea(std::vector<int>& height, int left, int right) {
-
-        int area = 0;
-        int sub_high = height[left] > height[right] ? height[right] : height[left];
-        for(++left; left < right ; ++left) {
-            if(height[left] < sub_high) {
-                area += sub_high - height[left];
-            }
-        }
-
-        return area;
-    }
- 
 private:
     std::vector<int> input_;
     int     output_;

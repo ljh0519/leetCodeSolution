@@ -15,6 +15,7 @@
 #include "../str/12.hpp"
 #include "../str/13.hpp"
 #include "../str/14.hpp"
+#include "../str/15.hpp"
 
 
 namespace XStr {
@@ -34,6 +35,7 @@ namespace XStr {
             case 12 : return new SolutionStr12();
             case 13 : return new SolutionStr13();
             case 14 : return new SolutionStr14();
+            case 15 : return new SolutionStr15();
             
             default: return nullptr;
         }

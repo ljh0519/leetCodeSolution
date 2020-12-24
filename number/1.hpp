@@ -33,25 +33,39 @@ public:
 	~SolutionNumber1() {}
 
     virtual void solution() override {    //取值范围 [−2^31,  2^31 − 1] = [-2147483648, 2147483647]
-        // dividend_ = -2147483648, divisor_ = 1;  //-2147483648
-        // dividend_ = -2147483648, divisor_ = -1; //2147483647
-        // dividend_ = -2147483648, divisor_ = 2; //-1073741824
-        // dividend_ = -2147483648, divisor_ = -3; // 715827882
-        // dividend_ = -1010369383, divisor_ = -2147483648; // 0
-        // dividend_ = -10, divisor_ = -3;
-        // dividend_ = -2147483647, divisor_ = -2147483646;
+        X_SOLUTION_TEST(-2147483648, dividend_ = -2147483648, divisor_ = -1);
+        X_SOLUTION_TEST(-1073741824, dividend_ = -2147483648, divisor_ = 2);
+        X_SOLUTION_TEST(715827882, dividend_ = -2147483648, divisor_ = -3);
+        X_SOLUTION_TEST(0, dividend_ = -1010369383, divisor_ = -2147483648);
+        X_SOLUTION_TEST(3, dividend_ = -10, divisor_ = -3);
+
+    }
+
+   void test(int expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			quotient_ = divide(dividend_, divisor_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != quotient_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
+
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
+    }
+
+    virtual void dumpOutput() override {
         std::cout << dividend_ << " / " << divisor_ << " = " << quotient_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
-
     
     int divide(int dividend, int divisor) {
         int out = 0;

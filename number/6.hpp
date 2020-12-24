@@ -32,18 +32,36 @@ public:
     virtual void solution() override {   
         
         // input_ = 100;
-        input_ = 121;
+        X_SOLUTION_TEST(true, input_ = 121);
+        X_SOLUTION_TEST(false, input_ = 100);
+
+
+    }
+
+   void test(bool expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			out_ = isPalindrome(input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != out_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input : " << input_ << std::endl;
-        std::cout << "out : " << out_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
+        std::cout << "output : " << out_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     //12ms       6.3MB

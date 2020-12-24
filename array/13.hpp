@@ -34,24 +34,40 @@ public:
 	~SolutionArray13() {}
 
     virtual void solution() override {   
-        // input_ = {5,7,8,10}, target_ = 8;      
-        // input_ = {1,3,5,6}, target_ = 5;      
-        // input_ = {1,3,5,6}, target_ = 2;      
-        // input_ = {1,3,5,6}, target_ = 7;      
-        // input_ = {1,3,5,6}, target_ = 0;      
-        // input_ = {1,3,5,6}, target_ = 6;      
+        X_SOLUTION_TEST(2, input_ = {5,7,8,10}, target_ = 8);      
+        X_SOLUTION_TEST(2, input_ = {1,3,5,6}, target_ = 5);      
+        X_SOLUTION_TEST(1, input_ = {1,3,5,6}, target_ = 2);      
+        X_SOLUTION_TEST(4, input_ = {1,3,5,6}, target_ = 7);      
+        X_SOLUTION_TEST(0, input_ = {1,3,5,6}, target_ = 0);      
+        X_SOLUTION_TEST(3, input_ = {1,3,5,6}, target_ = 6); 
+
+    }
+
+    void test(int expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			output_ = searchInsert(input_, target_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output : " << (expect) << " != " << (output_) << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input : " << vec2Str(input_) << std::endl;
         std::cout << "target : " << target_ << std::endl;
-        std::cout << "output : " << output_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
+        std::cout << "output : " << (output_) << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     int searchInsert(std::vector<int>& nums, int target) {

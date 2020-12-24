@@ -21,6 +21,7 @@
 #include "../array/18.hpp"
 #include "../array/19.hpp"
 #include "../array/20.hpp"
+#include "../array/21.hpp"
 
 
 namespace XArray {
@@ -46,6 +47,7 @@ namespace XArray {
             case 18 : return new SolutionArray18();
             case 19 : return new SolutionArray19();
             case 20 : return new SolutionArray20();
+            case 21 : return new SolutionArray21();
 
             default: return nullptr;
         }

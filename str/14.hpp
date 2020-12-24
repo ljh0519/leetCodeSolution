@@ -30,24 +30,40 @@ public:
 
     virtual void solution() override {
 
-        // input1_ = "10", input2_ = "10";
-        // input1_ = "99", input2_ = "99";
-        // input1_ = "50", input2_ = "50";
-        // input1_ = "132", input2_ = "68";
-        
+        X_SOLUTION_TEST("20", input1_ = "10", input2_ = "10");
+        X_SOLUTION_TEST("198", input1_ = "99", input2_ = "99");
+        X_SOLUTION_TEST("200", input1_ = "132", input2_ = "68");
+        X_SOLUTION_TEST("100", input1_ = "50", input2_ = "50");
+
+    }
+
+    void test(const char* expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			output_ = addStrings( input1_, input2_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input1 : " << input1_ << std::endl;
         std::cout << "input2 : " << input2_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : " << output_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
+
 
     //
     std::string addStrings(std::string num1, std::string num2) {

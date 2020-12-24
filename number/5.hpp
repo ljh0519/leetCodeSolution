@@ -29,29 +29,45 @@ public:
 
     virtual void solution() override {   
         
-        // input_ = 100;
-        // input_ = 940;
-        // input_ = 9;
-        // input_ = 58;
-        // input_ = 1994;
-        // input_ = 2147483647;
-        // input_ = 1534236469;
-        // input_ = -1;
-        // input_ = -298;
-        // input_ = -2147483648;
-        // input_ = -2147483647;
-        // input_ = -1563847412;
+        X_SOLUTION_TEST(1, input_ = 100);
+        X_SOLUTION_TEST(49, input_ = 940);
+        X_SOLUTION_TEST(85, input_ = 58);
+        X_SOLUTION_TEST(4991, input_ = 1994);
+        X_SOLUTION_TEST(0, input_ = 2147483647);
+        X_SOLUTION_TEST(0, input_ = 1534236469);
+        X_SOLUTION_TEST(-1, input_ = -1);
+        X_SOLUTION_TEST(-892, input_ = -298);
+        X_SOLUTION_TEST(0, input_ = -2147483648);
+        X_SOLUTION_TEST(0, input_ = -2147483647);
+        X_SOLUTION_TEST(0, input_ = -1563847412);
+
+
+    }
+
+   void test(int expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			out_ = reverse(input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != out_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input : " << input_ << std::endl;
-        std::cout << "out : " << out_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
+        std::cout << "output : " << out_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     //大神解法，long在C99规定中至少比int取值范围大，所以不担心整数溢出，可以直接进行计算

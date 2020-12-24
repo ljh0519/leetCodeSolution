@@ -47,20 +47,36 @@ public:
         // input_ = "()[]{}";
         // input_ = "(]";
         // input_ = "([)]";
-        input_ = "{[]}";
+        X_SOLUTION_TEST(true, input_ = "{[]}");
+
+    }
+
+   void test(int expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			output_ = isValid(input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input : " << input_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : " << output_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
-
+    
     bool isValid(std::string s) {
         int size = s.size();
         std::vector<int> stack;

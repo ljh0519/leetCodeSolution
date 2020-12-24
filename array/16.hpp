@@ -51,27 +51,42 @@ public:
 	~SolutionArray16() {}
 
     virtual void solution() override {   
-        // input_ = {2,3,6,7}, target_ = 7;
-        // input_ = {2,3,5}, target_ = 8;
+        X_SOLUTION_TEST(std::vector<std::vector<int>>({{7},{2,2,3}}), input_ = {2,3,6,7}, target_ = 7);
+        X_SOLUTION_TEST(std::vector<std::vector<int>>({{2,2,2,2},{2,3,3}, {3,5}}), input_ = {2,3,5}, target_ = 8);
         // input_ = {1,2,5,10}, target_ = 30;
         // input_ = {2,3,6,7}, target_ = 10;
         // input_ = {2,3,6,7}, target_ = 10;
      
+    }
+
+    void test(std::vector<std::vector<int>>&& expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			output_ = combinationSum(input_, target_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input : " << vec2Str(input_) << std::endl;
         std::cout << "input : " << target_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : " << std::endl;
         for(auto& str : output_) {
             std::cout << vec2Str(str, ",") << std::endl;
         }
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     //

@@ -38,23 +38,40 @@ public:
 
     virtual void solution() override {   
         
-        input_ = {1,2,0};
+        X_SOLUTION_TEST(3, input_ = {1,2,0});
+        X_SOLUTION_TEST(2, input_ = {3,4,-1,1});
+        X_SOLUTION_TEST(1, input_ = {7,8,9,11,12});
         // input_ = {3,4,-1,1};
         // input_ = {7,8,9,11,12};
         // input_ = {1,1};
         // input_ = {0,2,2,1,1};
      
+    }
+
+    void test(int expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			output_ = firstMissingPositive(input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input : " << vec2Str(input_) << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : " << output_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     //

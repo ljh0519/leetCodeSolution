@@ -28,22 +28,47 @@ public:
     virtual void solution() override {
         // input_ = {-1, 0, 1, 2, -1, -4};       //
         // input_ = {0, 0, 0, 0};       //
-        input_ = {-4, -3, -2, -1, -1, 0, 0, 1, 2, 3, 4};       //[[-4,0,4],[-4,1,3],[-3,-1,4],[-3,0,3],[-3,1,2],[-2,-1,3],[-2,0,2],[-1,-1,2],[-1,0,1]]
+        X_SOLUTION_TEST(std::vector<std::vector<int>>({{-4,0,4},
+            {-4,1,3},
+            {-3,-1,4},
+            {-3,0,3},
+            {-3,1,2},
+            {-2,-1,3},
+            {-2,0,2},
+            {-1,-1,2},
+            {-1,0,1}
+            }), input_ = {-4, -3, -2, -1, -1, 0, 0, 1, 2, 3, 4});
+
+
+    }
+
+    void test(std::vector<std::vector<int>>&& expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			output_ = threeSum(input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != output_) {
+            // std::cout << "expect != output : " << expect << " != " << out_ << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
-        std::cout << "input : ";
-        std::cout << vec2Str(input_) << std::endl;
+    virtual void dumpInput() override {
+        std::cout << "input : " << vec2Str(input_) << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : " << std::endl;
         for(int i = 0 ; i < output_.size(); ++i) {
 		    std::cout << "    " << vec2Str(output_[i]) << std::endl;
         }
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     //172ms     20MB

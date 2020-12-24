@@ -55,17 +55,33 @@ public:
 
     virtual void solution() override {
 
+    }
+
+   void test(int expect) {
+        dumpInput();
+
 		timer_.calc([this]() -> void* {
 			output_ = isMatch(input1_, input2_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input : " << input1_ << std::endl;
         std::cout << "input : " << input2_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : " << output_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
 

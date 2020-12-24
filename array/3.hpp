@@ -37,37 +37,39 @@ public:
 	~SolutionArray3() {}
 
     virtual void solution() override {
-        // nums1_ = {1, 3}, nums2_ = {2};       //2
-        nums1_ = {1, 2}, nums2_ = {3, 4};    //2.5
-        // nums1_ = {0}, nums2_ = {0};          //0
-        // nums1_ = {}, nums2_ = {1};           //1
-        // nums1_ = {2}, nums2_ = {0};          //2
+        X_SOLUTION_TEST(2.5, nums1_ = {1, 2}, nums2_ = {3, 4});
+        X_SOLUTION_TEST(2, nums1_ = {1, 3}, nums2_ = {2});
+        X_SOLUTION_TEST(2, nums1_ = {1, 3}, nums2_ = {2});
+        X_SOLUTION_TEST(0, nums1_ = {0}, nums2_ = {0});
+        X_SOLUTION_TEST(1, nums1_ = {}, nums2_ = {1});
+        X_SOLUTION_TEST(2, nums1_ = {2}, nums2_ = {0});
+    }
+
+    void test(double expect) {
+        dumpInput();
 
 		timer_.calc([&]() -> void* {
 			median_ = findMedianSortedArrays(nums1_, nums2_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != median_) {
+            std::cout << "expect != output : " << expect << " != " << median_ << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
-        for(int i = 0; i < nums1_.size(); ++i) {
-            if(0 == i) {
-                std::cout << nums1_[0];
-            } else {
-                std::cout << "," << nums1_[i];
-            }
-        }
-        std::cout << std::endl;
-        for(int i = 0; i < nums2_.size(); ++i) {
-            if(0 == i) {
-                std::cout << nums2_[0];
-            } else {
-                std::cout << "," << nums2_[i];
-            }
-        }
-        std::cout << std::endl;
+    virtual void dumpInput() override {
+        std::cout << "input1 : " << vec2Str(nums1_) << std::endl;
+        std::cout << "input2 : " << vec2Str(nums2_) << std::endl;
+    }
+
+    virtual void dumpOutput() override {
 		std::cout << "median = " << median_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     //56ms      87.8MB

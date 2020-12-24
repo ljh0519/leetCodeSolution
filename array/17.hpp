@@ -5,30 +5,22 @@
 #include "memory.h"
 #include "solution.hpp"
 
-// 37. 解数独
+// 448. 找到所有数组中消失的数字
 
-// 编写一个程序，通过填充空格来解决数独问题。
+// 给定一个范围在  1 ≤ a[i] ≤ n ( n = 数组大小 ) 的 整型数组，数组中的元素一些出现了两次，另一些只出现一次。
 
-// 一个数独的解法需遵循如下规则：
+// 找到所有在 [1, n] 范围之间没有出现在数组中的数字。
 
-// 数字 1-9 在每一行只能出现一次。
-// 数字 1-9 在每一列只能出现一次。
-// 数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。
-// 空白格用 '.' 表示。
+// 您能在不使用额外空间且时间复杂度为O(n)的情况下完成这个任务吗? 你可以假定返回的数组不算在额外空间内。
 
-// [图片] http://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Sudoku-by-L2G-20050714.svg/250px-Sudoku-by-L2G-20050714.svg.png
+// 示例:
 
-// 一个数独。
+// 输入:
+// [4,3,2,7,8,2,3,1]
 
-// [图片] http://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Sudoku-by-L2G-20050714_solution.svg/250px-Sudoku-by-L2G-20050714_solution.svg.png
+// 输出:
+// [5,6]
 
-// 答案被标成红色。
-
-// 提示：
-
-// 给定的数独序列只包含数字 1-9 和字符 '.' 。
-// 你可以假设给定的数独只有唯一解。
-// 给定数独永远是 9x9 形式的。
 
 
 
@@ -38,20 +30,35 @@ public:
 	~SolutionArray17() {}
 
     virtual void solution() override {   
-        // input_ = {4,3,2,7,8,2,3,1};
-        // input_ = {2,2};
-        input_ = {5,4,6,7,9,3,10,9,5,6};
+        X_SOLUTION_TEST(std::vector<int>({5,6}), input_ = {4,3,2,7,8,2,3,1});
+        X_SOLUTION_TEST(std::vector<int>({1,2,8}), input_ = {5,4,6,7,9,3,10,9,5,6});
+
+    }
+
+    void test(std::vector<int>&& expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			output_ = findDisappearedNumbers(input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
-        std::cout << "input : " <<  vec2Str(input_) << std::endl;
+    virtual void dumpInput() override {
+        std::cout << "input : " << vec2Str(input_) << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : " << vec2Str(output_) << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     //

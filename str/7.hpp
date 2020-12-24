@@ -27,19 +27,36 @@ public:
 
     virtual void solution() override {
 
-        input_ = "23";
+        X_SOLUTION_TEST(std::vector<std::string>({"ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"}), input_ = "23");
+
+    }
+
+   void test(std::vector<std::string>&& expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			output_ = letterCombinations(input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input : " << input_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : " << vec2Str(output_) << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
+
 
     //0ms       6.6MB   ???
     std::vector<std::string> letterCombinations(std::string digits) {

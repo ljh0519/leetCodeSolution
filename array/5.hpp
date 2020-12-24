@@ -38,26 +38,34 @@ public:
 	~SolutionArray5() {}
 
     virtual void solution() override {
-        input_ = {1,8,6,2,5,4,8,3,7};       //49
+        X_SOLUTION_TEST(49, input_ = {1,8,6,2,5,4,8,3,7});       //49
+
+    }
+
+    void test(int expect) {
+        dumpInput();
 
 		timer_.calc([&]() -> void* {
 			out_ = maxArea(input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != out_) {
+            std::cout << "expect != output : " << expect << " != " << out_ << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
-        std::cout << "input = ";
-        for(int i = 0; i < input_.size(); ++i) {
-            if(0 == i) {
-                std::cout << input_[0];
-            } else {
-                std::cout << "," << input_[i];
-            }
-        }
-        std::cout << std::endl;
+    virtual void dumpInput() override {
+        std::cout << "input : " << vec2Str(input_) << std::endl;
+    }
+
+    virtual void dumpOutput() override {
 		std::cout << "out = " << out_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     //44ms      17.8MB

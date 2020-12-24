@@ -39,20 +39,41 @@ public:
         // input1_ = "foo", input2_ = "bar";
         // input1_ = "paper", input2_ = "title";
         // input1_ = "ab", input2_ = "aa";
-        input1_ = "12", input2_ = "34";
+        X_SOLUTION_TEST(true, input1_ = "12", input2_ = "34");
+        X_SOLUTION_TEST(true, input1_ = "egg", input2_ = "abb");
+        X_SOLUTION_TEST(false, input1_ = "foo", input2_ = "bar");
+        X_SOLUTION_TEST(true, input1_ = "paper", input2_ = "title");
+        X_SOLUTION_TEST(false, input1_ = "ab", input2_ = "aa");
+
+    }
+
+   void test(bool expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			output_ = isIsomorphic(input1_, input2_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input1 : " << input1_ << std::endl;
         std::cout << "input2 : " << input2_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : " << output_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
+
 
     bool isIsomorphic(std::string s, std::string t) {
         if(s.empty() && t.empty()) {

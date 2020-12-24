@@ -26,21 +26,43 @@ public:
 	}
 
     virtual void solution() override {
-		// list_ = ListNode::Create({1,2});	//2,1,4,3
-        int k = 3;
-		// list_ = ListNode::Create({1,2,3});	//3,2,1
-		// list_ = ListNode::Create({1,2,3,4});	//3,2,1,4
-		// list_ = ListNode::Create({1,2,3,4,5});	//3,2,1,4,5
+		X_SOLUTION_TEST(std::vector<int>({1,2}), list_ = ListNode::Create({1,2}), k_ = 3);
+		X_SOLUTION_TEST(std::vector<int>({3,2,1}), list_ = ListNode::Create({1,2,3}), k_ = 3);
+		X_SOLUTION_TEST(std::vector<int>({3,2,1,4}), list_ = ListNode::Create({1,2,3,4}), k_ = 3);
+		X_SOLUTION_TEST(std::vector<int>({3,2,1,4,5}), list_ = ListNode::Create({1,2,3,4,5}), k_ = 3);
 		// list_ = ListNode::Create({1,2,3,4,5,6});	//3,5,2,2,6,4,2
 
-		list_ = (ListNode*)timer_.calc([this, k]() -> void* {
-			return reverseKGroup(list_, k);
-		});
     }
 
-    virtual void dump() override {
+    void test(std::vector<int>&& expect) {
+        dumpInput();
+
+		timer_.calc([this]() -> void* {
+			list_ = reverseKGroup(list_, k_);
+			return nullptr;
+		});
+
+		dumpInput();
+        dumpOutput();
+        // if(expect != output_) {
+        //     std::cout << "expect != output"  << std::endl;
+        //     std::cout << "failed test!." << std::endl;
+        //     exit(0);
+        // }
+		if(list_) {
+			ListNode::free(&list_);
+		}
+    }
+
+    virtual void dumpInput() override {
+		std::cout << "output : ";
 		ListNode::dump(list_);
+        std::cout << "k : " << k_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
     
 	// 非递归
@@ -73,8 +95,6 @@ public:
 
 		return first;
     }
-
-
 
 
 	// 递归
@@ -119,6 +139,7 @@ public:
 	}
 private:
 	ListNode* list_ = nullptr;
+	int k_;
 };
 
 

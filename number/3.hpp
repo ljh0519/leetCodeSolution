@@ -61,24 +61,40 @@ public:
 
     virtual void solution() override {   
         
-        // input_ = "C";       //100
-        // input_ = "CMXL";    //940
-        // input_ = "III";         //3
-        // input_ = "IV";          //4
-        // input_ = "IX";          //9
-        // input_ = "LVIII";          //58
-        // input_ = "MCMXCIV";          //1994
+        X_SOLUTION_TEST(100, input_ = "C");
+        X_SOLUTION_TEST(940, input_ = "CMXL");
+        X_SOLUTION_TEST(3, input_ = "III");
+        X_SOLUTION_TEST(4, input_ = "IV");
+        X_SOLUTION_TEST(58, input_ = "LVIII");
+        X_SOLUTION_TEST(9, input_ = "IX");
+        X_SOLUTION_TEST(1994, input_ = "MCMXCIV");
+
+    }
+
+   void test(int expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			out_ = romanToInt(input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != out_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "roman : " << input_ << std::endl;
-        std::cout << "out : " << out_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
+        std::cout << "output : " << out_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     int romanToInt(std::string s) {

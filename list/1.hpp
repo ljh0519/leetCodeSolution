@@ -20,8 +20,27 @@ public:
 
     }
 
-    virtual void dump() override {
-        
+    void test(std::vector<int>& expect) {
+        dumpInput();
+
+		timer_.calc([this]() -> void* {
+            return nullptr;
+		});
+
+        dumpOutput();
+        // if(expect != output_) {
+        //     std::cout << "expect != output"  << std::endl;
+        //     std::cout << "failed test!." << std::endl;
+        //     exit(0);
+        // }
+    }
+
+    virtual void dumpInput() override {
+    }
+
+    virtual void dumpOutput() override {
+        timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
 	ListNode* mergeKLists(std::vector<ListNode*>& lists) {

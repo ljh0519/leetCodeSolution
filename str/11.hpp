@@ -28,19 +28,36 @@ public:
 
     virtual void solution() override {
 
-        // input_ = "((())(()";
-        input_ = "((()())(()()()()";
+        X_SOLUTION_TEST(8, input_ = "((()())(()()()()");
+        X_SOLUTION_TEST(2, input_ = "(()");
+        X_SOLUTION_TEST(4, input_ = ")()())");
+
+    }
+
+   void test(int expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			output_ = longestValidParentheses(input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input : " << input_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : " << output_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
 

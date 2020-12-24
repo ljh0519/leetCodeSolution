@@ -36,19 +36,35 @@ public:
 
     virtual void solution() override {
 
-        input1_ = "barfoothefoobarman", input2_ = {"bar", "foo"};
+        X_SOLUTION_TEST(std::vector<int>({0,9}), input1_ = "barfoothefoobarman", input2_ = {"bar", "foo"});
+
+    }
+
+   void test(std::vector<int>&& expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			output_ = findSubstring(input1_, input2_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input1 : " << input1_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "input2 : " << vec2Str(input2_) << std::endl;
         std::cout << "output : " << vec2Str(output_) << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     std::vector<int> findSubstring(std::string s, std::vector<std::string>& words) {

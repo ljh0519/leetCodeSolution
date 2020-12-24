@@ -29,20 +29,34 @@ public:
         // input_ = "cbbd";    // bb
         // input_ = "ab";      // a       b
         // input_ = "a";        //a
-        input_ = "abcdc";    //cdc
+        X_SOLUTION_TEST("cdc", input_ = "abcdc");    //cdc
 
-        // std::cout << "substr:" << input_.substr(1,3) << std::endl;
+    }
+
+   void test(const char* expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			output_ = longestPalindrome(input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input : " << input_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : " << output_ << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
 

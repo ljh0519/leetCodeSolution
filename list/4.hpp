@@ -14,26 +14,50 @@
 class SolutionList4 : public Solution{
 public:	
 	~SolutionList4() {
-		if(list_) {
-			ListNode::free(&list_);
-		}
+        Free(&list_);
 	}
+
+    void Free(ListNode** head) {
+		if(head && *head) {
+			ListNode::free(head);
+		}
+    }
 
     virtual void solution() override {
 		// list_ = ListNode::Create({1});	//nullptr
 		// list_ = ListNode::Create({1});	//1
 		// list_ = ListNode::Create({1,2,3,4});	//2,1,4,3
 		// list_ = ListNode::Create({1,2,3,4,5});	//3,2,1,4,5
-		list_ = ListNode::Create({2,5,3,4,6,2,2});	//5,2,4,3,2,6,2     3,5,2,2,6,4,2
+		X_SOLUTION_TEST(std::vector<int>({2,2,6,4,3,5,2}), list_ = ListNode::Create({2,5,3,4,6,2,2}));	//5,2,4,3,2,6,2     3,5,2,2,6,4,2
 
-		list_ = (ListNode*)timer_.calc([this]() -> void* {
-			return reverseList(list_);
-		});
     }
 
-    virtual void dump() override {
+    void test(std::vector<int>&& expect) {
+        dumpInput();
+
+		timer_.calc([this]() -> void* {
+			list_ = reverseList(list_);
+            return nullptr;
+		});
+
+		dumpInput();
+        dumpOutput();
+        // if(expect != output_) {
+        //     std::cout << "expect != output"  << std::endl;
+        //     std::cout << "failed test!." << std::endl;
+        //     exit(0);
+        // }
+        Free(&list_);
+    }
+
+    virtual void dumpInput() override {
+		std::cout << "output : ";
 		ListNode::dump(list_);
+    }
+
+    virtual void dumpOutput() override {
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     // 从头回转

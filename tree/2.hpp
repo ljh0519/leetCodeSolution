@@ -50,26 +50,43 @@ public:
 
     virtual void solution() override {
 
-        // param_ = {"3","9","20","#","null","15","7"};
         // param_ = {"3"};
         // param_ = {};
-        param_ = {"3","#","#","#","null","15","7"};
 
-        input_ = TreeNode::Create(param_);
+        //可能有隐患
+        X_SOLUTION_TEST(std::vector<std::vector<int>>({{3}, {9,20}, {15,7}}), param_ = {"3","9","20","#","null","15","7"}, input_ = TreeNode::Create(param_));
+
+    }
+
+    void test(std::vector<std::vector<int>>&& expect) {
+        dumpInput();
+
 		timer_.calc([this]() -> void* {
 			output_ = levelOrder(input_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output"  << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input : " << vec2Str(param_) << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : " << std::endl;
         for(int i = 0 ; i < output_.size(); ++i) {
             std::cout << vec2Str(output_[i]) << std::endl;
         }
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
+
 
     //迭代
     std::vector<std::vector<int>> levelOrder(TreeNode* root) {

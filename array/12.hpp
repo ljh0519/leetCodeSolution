@@ -43,22 +43,38 @@ public:
 	~SolutionArray12() {}
 
     virtual void solution() override {   
-        // input_ = {5,7,7,8,8,10}, target_ = 8;      
-        // input_ = {5,7,7,8,8,10}, target_ = 6;       
-        // input_ = {}, target_ = 2;      
-        // input_ = {1,3,5}, target_ = 1;         
+        X_SOLUTION_TEST(std::vector<int>({3,4}), input_ = {5,7,7,8,8,10}, target_ = 8);   
+        X_SOLUTION_TEST(std::vector<int>({-1,-1}), input_ = {}, target_ = 2);   
+        X_SOLUTION_TEST(std::vector<int>({0,0}), input_ = {1,3,5}, target_ = 1);   
+        X_SOLUTION_TEST(std::vector<int>({-1,-1}), input_ = {5,7,7,8,8,10}, target_ = 6); 
+
+    }
+
+    void test(std::vector<int>&& expect) {
+        dumpInput();
 
 		timer_.calc([this]() -> void* {
 			output_ = searchRange(input_, target_);
             return nullptr;
 		});
+
+        dumpOutput();
+        if(expect != output_) {
+            std::cout << "expect != output : " << vec2Str(expect) << " != " << vec2Str(output_) << std::endl;
+            std::cout << "failed test!." << std::endl;
+            exit(0);
+        }
     }
 
-    virtual void dump() override {
+    virtual void dumpInput() override {
         std::cout << "input : " << vec2Str(input_) << std::endl;
         std::cout << "target : " << target_ << std::endl;
+    }
+
+    virtual void dumpOutput() override {
         std::cout << "output : " << vec2Str(output_) << std::endl;
         timer_.dump();
+        std::cout << "###################################################" << std::endl;
     }
 
     std::vector<int> searchRange(std::vector<int>& nums, int target) {
